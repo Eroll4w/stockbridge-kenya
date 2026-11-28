@@ -1,0 +1,35 @@
+.auth-shell{min-height:100vh;display:grid;place-items:center;padding:32px 20px}
+.auth-card{width:min(100%,420px)}
+.auth-brand{display:flex;align-items:center;gap:11px;margin-bottom:28px}
+.auth-brand strong{font:800 18px Manrope;letter-spacing:-.5px;color:#153632}
+.auth-brand span{font-size:9px;letter-spacing:2.7px;color:#169887;font-weight:700}
+.auth-card h1{font:800 26px Manrope;letter-spacing:-.8px;margin:0 0 6px;color:#153632}
+.auth-sub{margin:0 0 20px;color:#82918e;font-size:13px}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:#e9f0ee;border-radius:9px;padding:3px;margin-bottom:18px}
+.auth-tabs button{border:0;background:transparent;padding:9px;border-radius:7px;font-size:12px;font-weight:700;color:#60716d}
+.auth-tabs button.on{background:white;color:#087f70;box-shadow:0 1px 4px #183b3520}
+.role-pick{border:0;padding:0;margin:0 0 16px;display:grid;gap:8px}
+.role-pick legend{font-size:11px;font-weight:700;color:#536a64;margin-bottom:8px;padding:0}
+.role-pick label{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:2px 11px;padding:11px 13px;background:white;border:1px solid #dfe8e4;border-radius:10px;cursor:pointer;color:#60716d;position:relative}
+.role-pick label svg{grid-row:span 2;color:#078878}
+.role-pick label b{font-size:12px;color:#263c39}
+.role-pick label span{font-size:11px;color:#8d9c97}
+.role-pick label.on{border-color:#078878;background:#eaf7f4;box-shadow:0 0 0 3px #15978718}
+.role-pick input{position:absolute;opacity:0;pointer-events:none}
+.role-pick label:has(input:focus-visible){outline:2px solid #078878;outline-offset:2px}
+.field{display:block;font-size:11px;font-weight:700;color:#536a64;margin-bottom:13px}
+.field input{display:block;width:100%;height:42px;border:1px solid #dfe8e4;border-radius:8px;padding:0 12px;margin-top:6px;font-size:13px;color:#29453e;background:white;outline:none}
+.field input:focus{border-color:#159787;box-shadow:0 0 0 3px #15978718}
+.pw{display:flex;align-items:center;position:relative}
+.pw button{position:absolute;right:8px;top:12px;border:0;background:transparent;color:#78908a;display:grid;padding:4px}
+.pw input{padding-right:40px}
+.auth-error{min-height:20px;font-size:12px;color:#bd4c3c;margin-bottom:6px}
+.auth-submit{width:100%;padding:13px;font-size:13px}
+.auth-submit:disabled{opacity:.7;cursor:wait}
+.auth-demo{font-size:11px;color:#93a19c;text-align:center;margin:14px 0 0}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spin{animation:none}}
+.role-badge{font-size:11px;font-weight:700;color:#078878;background:#e5f6f1;border-radius:20px;padding:5px 10px}
+.logout-btn{border:0;background:transparent;color:#9bbfb7;display:grid;padding:6px;border-radius:6px}
+.logout-btn:hover{color:white;background:#12574e}
