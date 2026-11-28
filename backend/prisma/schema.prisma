@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+
+enum Role {
+  PHARMACIST
+  ADMIN
+}
+
+enum TransactionType {
+  STOCK_IN
+  STOCK_OUT
+}
+
+model Facility {
+  id        Int      @id @default(autoincrement())
+  name      String
+  county    String
+  address   String?
+  latitude  Float?
+  longitude Float?
+  phone     String?
+  createdAt DateTime @default(now())
+
+  users  User[]
+  stocks Stock[]
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(PHARMACIST)
+  createdAt    DateTime @default(now())
+
+  facilityId Int
+  facility   Facility @relation(fields: [facilityId], references: [id])
+
+  transactions StockTransaction[]
+}
+
+model Medicine {
+  id       Int    @id @default(autoincrement())
+  name     String
+  strength String // e.g. "500mg"
+  unit     String // e.g. "tablet", "bottle"
+
+  stocks Stock[]
+
+  @@unique([name, strength, unit])
+  @@index([name])
+}
+
+model Stock {
+  id                Int      @id @default(autoincrement())
+  quantity          Int      @default(0)
+  lowStockThreshold Int      @default(10)
+  updatedAt         DateTime @updatedAt
+
+  facilityId Int
+  facility   Facility @relation(fields: [facilityId], references: [id])
+  medicineId Int
+  medicine   Medicine @relation(fields: [medicineId], references: [id])
+
+  transactions StockTransaction[]
+  alerts       Alert[]
+
+  @@unique([facilityId, medicineId])
+}
+
+model StockTransaction {
+  id        Int             @id @default(autoincrement())
+  type      TransactionType
+  quantity  Int
+  note      String?
+  createdAt DateTime        @default(now())
+
+  stockId Int
+  stock   Stock @relation(fields: [stockId], references: [id])
+  userId  Int
+  user    User  @relation(fields: [userId], references: [id])
+
+  @@index([stockId, createdAt])
+}
+
+model Alert {
+  id              Int       @id @default(autoincrement())
+  quantityAtAlert Int
+  createdAt       DateTime  @default(now())
+  resolvedAt      DateTime? // empty = still active
+
+  stockId Int
+  stock   Stock @relation(fields: [stockId], references: [id])
+
+  @@index([stockId, resolvedAt])
+}
